@@ -3,6 +3,8 @@ import './style.css'
 import * as THREE from 'three'  //Import the 3D graphic library
 import { AlphaFormat, RGBAFormat } from 'three';
 
+import {clockCube} from './cube.js';
+
 // create a new scene background of nothing
 const scene = new THREE.Scene();
 scene.background = null;
@@ -51,6 +53,8 @@ pointLight.position.set(0,15, 30);
 pointLight.intensity = 2;
 
 
+const cube1 = new clockCube(scene, 10, 0, 5, 1);
+
 scene.add(pointLight);
 scene.add(light);
 //scene.add(cube);
@@ -58,6 +62,8 @@ scene.add(light);
 function animate() {
 
   requestAnimationFrame( animate );
+
+  cube1.update();
 
   for(var cube of cubes) {
   cube.rotation.x += Math.random()* 0.02;
