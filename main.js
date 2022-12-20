@@ -53,7 +53,7 @@ pointLight.position.set(0,15, 30);
 pointLight.intensity = 2;
 
 
-const cube1 = new clockCube(scene, 10, 0, 5, 1);
+const cube1 = new clockCube(scene, 10, 0, 0, 1);
 
 scene.add(pointLight);
 scene.add(light);
