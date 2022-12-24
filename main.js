@@ -14,7 +14,7 @@ var canvasH = canvas.scrollHeight;
 var canvasW = canvas.scrollWidth;
 
 // create a camera object
-const camera = new THREE.PerspectiveCamera(80, canvasW / canvasH, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(90, canvasW / canvasH, 0.1, 1000)
 
 //init the rendering engine
 const renderer = new THREE.WebGLRenderer({
@@ -30,30 +30,25 @@ renderer.setSize( canvasW, canvasH );
 //set the camera position
 camera.position.setZ(30);
 
-var cubes = [];
 
 
-
-const geometry = new THREE.BoxGeometry(6, 6, 6);
-const material = new THREE.MeshStandardMaterial( {color : '#034afc'} );
-// const cube = new THREE.Mesh(geometry, material);
-
-for (let i = 0; i < 1; i++) {
-  var cube = new THREE.Mesh(geometry, material);
-  cube.position.set(i*0, 0, 0);
-  cubes.push(cube);
-  scene.add(cube);
-}
 
 const pointLight = new THREE.PointLight(0xffffff);
 const light = new THREE.AmbientLight(0xffffff);
 light.position.set(15, 15, 100);
 light.intensity = 0.5;
 pointLight.position.set(0,15, 30);
-pointLight.intensity = 2;
+pointLight.intensity = 1.5;
+
+const cubeSizes= 9;
+
+const cubeSeconds2 = new clockCube(scene, cubeSizes, 10, 0, 1, 0.002);
+const cubeSeconds1 = new clockCube(scene, cubeSizes, 25, 0, 1, 0.005);
+
+const cubeHours1 = new clockCube(scene, cubeSizes, -25, 0, 1, 0.001);
+const cubeHours2 = new clockCube(scene, cubeSizes, -10, 0, 1, 0.001);
 
 
-const cube1 = new clockCube(scene, 10, 0, 0, 1);
 
 scene.add(pointLight);
 scene.add(light);
@@ -63,13 +58,36 @@ function animate() {
 
   requestAnimationFrame( animate );
 
-  cube1.update();
+  var dt = new Date();
+  var seconds1 = 0;
+  var seconds2 = 0;
+  var hours1 = 0;
+  var hours2 = 0;
 
-  for(var cube of cubes) {
-  cube.rotation.x += Math.random()* 0.02;
-  cube.rotation.y += Math.random()* 0.02;
-  cube.rotation.z += Math.random()* 0.02;
+  if (String(dt.getSeconds()).length == 1) {
+    seconds1 = 0;
+    seconds2 = dt.getSeconds();
+  } else {
+    seconds1 = parseInt(String(dt.getSeconds()).split("")[0]);
+    seconds2 = parseInt(String(dt.getSeconds()).split("")[1]);
   }
+
+  if(String(dt.getHours()).length == 1) {
+    hours1 = 0;
+    hours2 = dt.getHours();
+  } else {
+    hours1 = parseInt(String(dt.getHours()).split("")[0]);
+    hours2 = parseInt(String(dt.getHours()).split("")[1]);
+
+  }
+
+
+  cubeSeconds2.update(seconds1);
+  cubeSeconds1.update(seconds2);
+
+  cubeHours1.update(hours1);
+  cubeHours2.update(hours2);
+
 
   renderer.render(scene, camera);
 
@@ -94,17 +112,5 @@ onresize = (event) => {
   renderer.setSize( canvasW, canvasH, false );
   camera.aspect = canvasW / canvasH;
   camera.updateProjectionMatrix();
-
-  for(var cube of cubes) {
-    scene.remove(cube);
-  }
-  cubes = [];
-
-  for (let i = 0; i < 4; i++) {
-    var cube = new THREE.Mesh(geometry, material);
-    cube.position.set(i*18-25, 0, 0);
-    cubes.push(cube);
-    scene.add(cube);
-  }
 
 };

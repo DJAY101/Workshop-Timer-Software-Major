@@ -6,8 +6,8 @@ export class clockCube {
 
     updateText(scene, newText)
     {
-        if (globalThis.currentText == newText) {return}
-        globalThis.currentText = newText
+        if (this.currentText == newText) {return}
+        this.currentText = newText
 
         //console.log("doing magic");
 
@@ -19,18 +19,21 @@ export class clockCube {
         
         
         const size = this.size;
+        const fontSize = size/2.2
         const y_pos = this.y_pos;
         
-        scene.remove(globalThis.text);
-        scene.remove(globalThis.text2);
+        scene.remove(this.text);
+        scene.remove(this.text2);
         
+        const SelfReference = this;
+
         const loader = new FontLoader();
 
         loader.load( '/fonts/Number.json', function ( font ) {
 
             textGeo = new TextGeometry( newText, {
                 font: font,
-                size: 4,
+                size: fontSize,
                 height: 1,
                 
             } );
@@ -50,7 +53,7 @@ export class clockCube {
 
             textGeo2 = new TextGeometry( newText, {
                 font: font,
-                size: 4,
+                size: fontSize,
                 height: 1,
                 
             } );
@@ -63,15 +66,15 @@ export class clockCube {
             text2.geometry.center();
             text2.position.copy(center);
 
-            text2.position.setX(5)
+            text2.position.setX(0)
             text2.position.setY(y_pos);
             text2.position.setZ(-size);
 
-
+            
             scene.add(text);
             scene.add(text2);
-            globalThis.text2 = text2;
-            globalThis.text = text;
+            SelfReference.text2 = text2;
+            SelfReference.text = text;
         } );
 
         
@@ -79,7 +82,7 @@ export class clockCube {
 
     }
 
-    constructor(scene, size, x_pos, y_pos, z_pos) {
+    constructor(scene, size, x_pos, y_pos, z_pos, rotSpeed) {
         this.scene = scene;
         this.size = size;
         this.x_pos = x_pos;
@@ -100,13 +103,13 @@ export class clockCube {
 
         this.cube = new THREE.Mesh(this.geometry, this.material);
 
-        this.sphereGeo = new THREE.SphereGeometry(1);
-        this.sphere = new THREE.Mesh(this.sphereGeo, this.material);
+        // this.sphereGeo = new THREE.SphereGeometry(1);
+        // this.sphere = new THREE.Mesh(this.sphereGeo, this.material);
 
-
+        this.speed = rotSpeed;
 
         this.scene.add(this.cube);
-        this.scene.add(this.sphere);
+        // this.scene.add(this.sphere);
 
         this.cube.position.set(x_pos, y_pos, z_pos);
         //this.sphere.position.set(2, 2, 2);
@@ -118,51 +121,54 @@ export class clockCube {
 
         this.targetFaceDirection = Math.PI/2;
 
-        this.oldTime2 = Math.round(Date.now()/1000, 0);
+        // this.oldTime2 = Math.round(Date.now()/1000, 0);
+
+        
 
             var dt = new Date();
             this.updateText(this.scene, String(dt.getSeconds()));
+            this.oldTime2 = -1;
 
     }
 
 
-    update() {
+    update(number) {
 
         this.DeltaTime = Date.now() - this.oldTime;
 
-        if (Math.round(Date.now()/1000, 0) > this.oldTime2) {
+        if (number != this.oldTime2) {
             this.targetFaceDirection += Math.PI;
-            //console.log(this.oldTime2 + " " + Math.round(Date.now()/1000, 0));
-            this.oldTime2 = Math.ceil(Date.now()/1000, 0);
-
+            this.oldTime2 = number;
         }
 
         if (Math.abs(this.targetFaceDirection-this.faceDirection) < Math.PI*.5) {
-            console.log("magive");
-            var dt = new Date();
-            
-            this.updateText(this.scene, String(dt.getSeconds()));
+
+            this.updateText(this.scene, String(number));
 
         }
 
 
         //this.faceDirection += 0.01
-        this.faceDirection += (this.targetFaceDirection-this.faceDirection)*0.005*this.DeltaTime;
+        this.faceDirection += (this.targetFaceDirection-this.faceDirection)*this.speed*this.DeltaTime;
 
 
         
-        this.sphere.position.set(20*Math.cos(this.faceDirection), this.y_pos, 20*Math.sin(this.faceDirection))
+        // this.sphere.position.set(20*Math.cos(this.faceDirection), this.y_pos, 20*Math.sin(this.faceDirection))
 
-        globalThis.text.lookAt(this.targetLookAt);
-        globalThis.text2.lookAt(this.targetLookAtInverse);
+        
 
-        globalThis.text.position.set(this.size/1.5*Math.cos(this.faceDirection), this.y_pos, this.size/1.5*Math.sin(this.faceDirection))
-        globalThis.text2.position.set(this.size/1.5*Math.cos(this.faceDirection+Math.PI), this.y_pos, this.size/1.5*Math.sin(this.faceDirection+Math.PI));
 
-        this.targetLookAt.set(20*Math.cos(this.faceDirection), this.y_pos, 20*Math.sin(this.faceDirection));
-        this.targetLookAtInverse.set(20*Math.cos(this.faceDirection+Math.PI), this.y_pos, 20*Math.sin(this.faceDirection+Math.PI));
+
+        this.targetLookAt.set((20*Math.cos(this.faceDirection)) + this.x_pos, this.y_pos, 20*Math.sin(this.faceDirection));
+        this.targetLookAtInverse.set((20*Math.cos(this.faceDirection+Math.PI))+ this.x_pos, this.y_pos, 20*Math.sin(this.faceDirection+Math.PI));
 
         this.cube.lookAt(this.targetLookAt);
+
+        this.text.lookAt(this.targetLookAt);
+        this.text2.lookAt(this.targetLookAtInverse);
+
+        this.text.position.set((this.size/1.5*Math.cos(this.faceDirection)) + this.x_pos, this.y_pos, this.size/1.5*Math.sin(this.faceDirection))
+        this.text2.position.set((this.size/1.5*Math.cos(this.faceDirection+Math.PI)) + this.x_pos, this.y_pos, this.size/1.5*Math.sin(this.faceDirection+Math.PI));
 
         this.oldTime = Date.now();
         
