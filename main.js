@@ -40,13 +40,18 @@ light.intensity = 0.5;
 pointLight.position.set(0,15, 30);
 pointLight.intensity = 1.5;
 
-const cubeSizes= 9;
+const cubeSizes= canvas.clientHeight/120;
 
-const cubeSeconds2 = new clockCube(scene, cubeSizes, 10, 0, 1, 0.002);
-const cubeSeconds1 = new clockCube(scene, cubeSizes, 25, 0, 1, 0.005);
+var cubeSeconds2 = new clockCube(scene, cubeSizes, -25, -10, 1, 0.002);
+var cubeSeconds1 = new clockCube(scene, cubeSizes, -10, -10, 1, 0.005);
 
-const cubeHours1 = new clockCube(scene, cubeSizes, -25, 0, 1, 0.001);
-const cubeHours2 = new clockCube(scene, cubeSizes, -10, 0, 1, 0.001);
+var cubeMinutes2 = new clockCube(scene, cubeSizes, 10, 0, 1, 0.002);
+var cubeMinutes1 = new clockCube(scene, cubeSizes, 25, 0, 1, 0.005);
+
+var cubeHours1 = new clockCube(scene, cubeSizes, -25, 0, 1, 0.001);
+var cubeHours2 = new clockCube(scene, cubeSizes, -10, 0, 1, 0.001);
+
+
 
 
 
@@ -61,6 +66,8 @@ function animate() {
   var dt = new Date();
   var seconds1 = 0;
   var seconds2 = 0;
+  var minutes1 = 0;
+  var minutes2 = 0;
   var hours1 = 0;
   var hours2 = 0;
 
@@ -71,6 +78,15 @@ function animate() {
     seconds1 = parseInt(String(dt.getSeconds()).split("")[0]);
     seconds2 = parseInt(String(dt.getSeconds()).split("")[1]);
   }
+
+  if (String(dt.getMinutes()).length == 1) {
+    minutes1 = 0;
+    minutes2 = dt.getMinutes();
+  } else {
+    minutes1 = parseInt(String(dt.getMinutes()).split("")[0]);
+    minutes2 = parseInt(String(dt.getMinutes()).split("")[1]);
+  }
+
 
   if(String(dt.getHours()).length == 1) {
     hours1 = 0;
@@ -85,6 +101,9 @@ function animate() {
   cubeSeconds2.update(seconds1);
   cubeSeconds1.update(seconds2);
 
+  cubeMinutes2.update(minutes1);
+  cubeMinutes1.update(minutes2);
+
   cubeHours1.update(hours1);
   cubeHours2.update(hours2);
 
@@ -94,6 +113,37 @@ function animate() {
 }
 
 animate();
+
+
+
+
+
+
+function updateCubes(canvas_W) {
+
+  const newSize = canvas_W/120;
+
+  cubeHours1.delete();
+  cubeHours2.delete();
+
+  cubeSeconds1.delete();
+  cubeSeconds2.delete();
+
+  cubeMinutes1.delete();
+  cubeMinutes2.delete();
+
+   cubeSeconds2 = new clockCube(scene, cubeSizes, -25, -10, 1, 0.002);
+   cubeSeconds1 = new clockCube(scene, cubeSizes, -10, -10, 1, 0.005);
+  
+   cubeMinutes1 = new clockCube(scene, cubeSizes, 10, 0, 1, 0.002);
+   cubeMinutes2 = new clockCube(scene, cubeSizes, 25, 0, 1, 0.005);
+  
+   cubeHours1 = new clockCube(scene, cubeSizes, -25, 0, 1, 0.001);
+   cubeHours2 = new clockCube(scene, cubeSizes, -10, 0, 1, 0.001);
+  
+}
+
+
 
 addEventListener("resize", (event) => {});
 
@@ -105,6 +155,7 @@ onresize = (event) => {
   document.getElementById('bg').style.height = String(canvasH)+"px";
   document.getElementById('bg').style.width = String(canvasW)+"px";
 
+  updateCubes(canvasW);
 
   console.log(canvasW);
 
@@ -114,3 +165,5 @@ onresize = (event) => {
   camera.updateProjectionMatrix();
 
 };
+
+

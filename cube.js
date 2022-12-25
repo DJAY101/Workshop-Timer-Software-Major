@@ -15,7 +15,7 @@ export class clockCube {
         var textGeo2 = null;
         var text = null;
         var text2 = null;
-        var textMat = new THREE.MeshStandardMaterial( {color : '#FFAC1C'} );
+        var textMat = new THREE.MeshStandardMaterial( {color : '#FF961C'} );
         
         
         const size = this.size;
@@ -70,11 +70,12 @@ export class clockCube {
             text2.position.setY(y_pos);
             text2.position.setZ(-size);
 
-            
+            if(!SelfReference.queuedDeletion) {
             scene.add(text);
             scene.add(text2);
             SelfReference.text2 = text2;
             SelfReference.text = text;
+            }
         } );
 
         
@@ -99,9 +100,10 @@ export class clockCube {
         this.idleRotOffset = Math.PI/9;
 
         this.geometry = new THREE.BoxGeometry(size, size, size);
-        this.material = new THREE.MeshStandardMaterial( {color : '#034afc'} );
+        this.material = new THREE.MeshStandardMaterial( {color : '#034afc', metalness: 0.2} );
 
         this.cube = new THREE.Mesh(this.geometry, this.material);
+        this.updateText(this.scene, "00");
 
         // this.sphereGeo = new THREE.SphereGeometry(1);
         // this.sphere = new THREE.Mesh(this.sphereGeo, this.material);
@@ -121,18 +123,24 @@ export class clockCube {
 
         this.targetFaceDirection = Math.PI/2;
 
-        // this.oldTime2 = Math.round(Date.now()/1000, 0);
+        this.oldTime2 = -1;
 
-        
-
-            var dt = new Date();
-            this.updateText(this.scene, String(dt.getSeconds()));
-            this.oldTime2 = -1;
+        this.queuedDeletion = false;
 
     }
 
 
+    delete() {
+        this.queuedDeletion = true;
+
+        this.scene.remove(this.text);
+        this.scene.remove(this.text2);
+        this.scene.remove(this.cube);
+
+    }
+
     update(number) {
+        if(this.queuedDeletion) return;
 
         this.DeltaTime = Date.now() - this.oldTime;
 
@@ -164,12 +172,16 @@ export class clockCube {
 
         this.cube.lookAt(this.targetLookAt);
 
+    
+        
+        if(this.text != null) {
         this.text.lookAt(this.targetLookAt);
         this.text2.lookAt(this.targetLookAtInverse);
 
+
         this.text.position.set((this.size/1.5*Math.cos(this.faceDirection)) + this.x_pos, this.y_pos, this.size/1.5*Math.sin(this.faceDirection))
         this.text2.position.set((this.size/1.5*Math.cos(this.faceDirection+Math.PI)) + this.x_pos, this.y_pos, this.size/1.5*Math.sin(this.faceDirection+Math.PI));
-
+        }
         this.oldTime = Date.now();
         
     }
