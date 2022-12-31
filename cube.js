@@ -22,9 +22,10 @@ export class clockCube {
         const fontSize = size/2.2
         const y_pos = this.y_pos;
         
+        if(this.text != null) {
         scene.remove(this.text);
         scene.remove(this.text2);
-        
+        }
         const SelfReference = this;
 
         const loader = new FontLoader();
@@ -86,13 +87,10 @@ export class clockCube {
     constructor(scene, size, x_pos, y_pos, z_pos, rotSpeed) {
         this.scene = scene;
         this.size = size;
+
         this.x_pos = x_pos;
         this.y_pos = y_pos;
         this.z_pos = z_pos;
-
-        this.targetX = 0;
-        this.targetY = 0;
-        this.targetZ = 0;
 
         this.targetLookAt = new THREE.Vector3(0, this.y_pos, 1);
         this.targetLookAtInverse = new THREE.Vector3(0, this.y_pos, 1);
@@ -123,7 +121,7 @@ export class clockCube {
 
         this.targetFaceDirection = Math.PI/2;
 
-        this.oldTime2 = -1;
+        this.oldTime2 = "-1";
 
         this.queuedDeletion = false;
 
