@@ -41,16 +41,7 @@ light.intensity = 0.5;
 pointLight.position.set(0,15, 30);
 pointLight.intensity = 1.5;
 
-// var cubeSeconds2 = new clockCube(scene, cubeSizes, -25, -15, 1, 0.002);
-// var cubeSeconds1 = new clockCube(scene, cubeSizes, -10, -15, 1, 0.005);
-
-// var cubeMinutes2 = new clockCube(scene, cubeSizes, 10, 0, 1, 0.002);
-// var cubeMinutes1 = new clockCube(scene, cubeSizes, 25, 0, 1, 0.005);
-
-// var cubeHours1 = new clockCube(scene, cubeSizes, -25, 0, 1, 0.001);
-// var cubeHours2 = new clockCube(scene, cubeSizes, -10, 0, 1, 0.001);
-
-var clockLoader = new ClockLoader(scene, -35, 0, 0, 0.01);
+var clockLoader = new ClockLoader(scene, -canvasW*0.055/2, 0, 0, 0.009);
 clockLoader.RefreshCubes(canvas.clientWidth);
 
 scene.add(pointLight);
@@ -61,51 +52,6 @@ function animate() {
 
   requestAnimationFrame( animate );
   clockLoader.UpdateCubes();
-
-  // var dt = new Date();
-  // var seconds1 = 0;
-  // var seconds2 = 0;
-  // var minutes1 = 0;
-  // var minutes2 = 0;
-  // var hours1 = 0;
-  // var hours2 = 0;
-
-  // if (String(dt.getSeconds()).length == 1) {
-  //   seconds1 = 0;
-  //   seconds2 = dt.getSeconds();
-  // } else {
-  //   seconds1 = String(dt.getSeconds()).split("")[0];
-  //   seconds2 = String(dt.getSeconds()).split("")[1];
-  // }
-
-  // if (String(dt.getMinutes()).length == 1) {
-  //   minutes1 = 0;
-  //   minutes2 = dt.getMinutes();
-  // } else {
-  //   minutes1 = String(dt.getMinutes()).split("")[0];
-  //   minutes2 = String(dt.getMinutes()).split("")[1];
-  // }
-
-
-  // if(String(dt.getHours()).length == 1) {
-  //   hours1 = 0;
-  //   hours2 = dt.getHours();
-  // } else {
-  //   hours1 = String(dt.getHours()).split("")[0];
-  //   hours2 = String(dt.getHours()).split("")[1];
-
-  // }
-
-
-  // cubeSeconds2.update(seconds1);
-  // cubeSeconds1.update(seconds2);
-
-  // cubeMinutes2.update(minutes1);
-  // cubeMinutes1.update(minutes2);
-
-  // cubeHours1.update(hours1);
-  // cubeHours2.update(hours2);
-
 
   renderer.render(scene, camera);
 
@@ -120,28 +66,10 @@ animate();
 
 function updateCubes(canvas_W) {
 
-  // const newSize = canvas_W/100;
-  clockLoader.SetXPos(-canvasW*0.05/2);
+  clockLoader.SetXPos(-canvasW*0.055/2);
   clockLoader.RefreshCubes(canvasW);
 
-  // cubeHours1.delete();
-  // cubeHours2.delete();
 
-  // cubeSeconds1.delete();
-  // cubeSeconds2.delete();
-
-  // cubeMinutes1.delete();
-  // cubeMinutes2.delete();
-
-  //  cubeSeconds2 = new clockCube(scene, cubeSizes, -25, -15, 1, 0.002);
-  //  cubeSeconds1 = new clockCube(scene, cubeSizes, -10, -15, 1, 0.005);
-  
-  //  cubeMinutes2 = new clockCube(scene, cubeSizes, 10, 0, 1, 0.002);
-  //  cubeMinutes1 = new clockCube(scene, cubeSizes, 25, 0, 1, 0.005);
-  
-  //  cubeHours1 = new clockCube(scene, cubeSizes, -25, 0, 1, 0.001);
-  //  cubeHours2 = new clockCube(scene, cubeSizes, -10, 0, 1, 0.001);
-  
 }
 
 
