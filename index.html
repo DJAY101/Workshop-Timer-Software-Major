@@ -4,17 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap" rel="stylesheet">
+    
     <title>Workshop Clock</title>
   </head>
   <body>
 
+    <button class="startButton" type="button" id="StartButton" onclick='HideButton()' >START</button>
+
+    
+    
 
     <div class = "remainder" id="renderBox">
       <canvas id="bg" ></canvas>
     </div>
-
     
-
+    
+    
     <div class="leftBar"> 
       <img src="ScasLogo.png" alt="Logo" width="100%"> 
       <h1 class="headingText" > Upcoming Classes </h1>
@@ -23,7 +31,14 @@
     <div class="topBar">
       <h1 class="headingText" > Workshop 7.12 </h1>
     </div>
-
+    
     <script type="module" src="/main.js"></script>
+
+    <script>
+      function HideButton() {
+        document.getElementById("StartButton").hidden = true;
+}
+    </script>
+
   </body>
 </html>

@@ -73,6 +73,8 @@ export class ClockLoader {
                 this.dynamicCubes.push(cube);           
                 this.dynamicCubes.push(cube2);           
             }
+
+            
             var xSpawnCoord = this.x_pos+i*this.spacing*canvasWidth + spaceOffset
 
             

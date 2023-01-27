@@ -3,13 +3,26 @@ import './style.css'
 import * as THREE from 'three'  //Import the 3D graphic library
 import { AlphaFormat, RGBAFormat } from 'three';
 
+
 import {clockCube} from './cube.js';
 import {ClockLoader} from './ClockLoader';
 
+
+const alarm = new Audio("Alarm.mp3");
+
+
 // create a new scene background of nothing
 const scene = new THREE.Scene();
-scene.background = null;
 
+// load a texture, set wrap mode to repeat
+const textureBackground = new THREE.TextureLoader().load( "Background.jpg" );
+textureBackground.wrapS = THREE.RepeatWrapping;
+textureBackground.wrapT = THREE.RepeatWrapping;
+
+scene.background = textureBackground;
+
+
+//set the canvas and canvas size variables
 var canvas = document.getElementById('renderBox');
 var canvasH = canvas.scrollHeight;
 var canvasW = canvas.scrollWidth;
@@ -37,9 +50,9 @@ camera.position.setZ(40);
 const pointLight = new THREE.PointLight(0xffffff);
 const light = new THREE.AmbientLight(0xffffff);
 light.position.set(15, 15, 100);
-light.intensity = 0.5;
-pointLight.position.set(0,15, 30);
-pointLight.intensity = 1.5;
+light.intensity = 1.2;
+pointLight.position.set(0,15, 40);
+pointLight.intensity = 1;
 
 var clockLoader = new ClockLoader(scene, -canvasW*0.055/2, 0, 0, 0.009);
 clockLoader.RefreshCubes(canvas.clientWidth);
@@ -74,9 +87,14 @@ function updateCubes(canvas_W) {
 
 
 
+
 addEventListener("resize", (event) => {});
 
 onresize = (event) => {
+
+  if(document.getElementById("StartButton").hidden == true) {
+    alarm.play();
+  }
 
   canvasH = canvas.clientHeight;
   canvasW = canvas.clientWidth;
@@ -94,5 +112,7 @@ onresize = (event) => {
   camera.updateProjectionMatrix();
 
 };
+
+
 
 
