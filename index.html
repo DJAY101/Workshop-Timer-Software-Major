@@ -7,15 +7,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet">
+
     <title>Workshop Clock</title>
   </head>
-  <body>
+  <body class="backgroundColour">
 
-    <button class="startButton" type="button" id="StartButton" onclick='HideButton()' >START</button>
-
-    
-    
+    <!-- <button class="startButton" type="button" id="StartButton" onclick='HideButton()' >START</button> -->
+    <div class="startDiv" id="startDiv">
+      <h1 id="startText">Please select the workshop CSV File </h1>
+      <input type="file" id="CSVPath">
+      <button class="startButton" id="startButton"> START </button>
+    </div>
 
     <div class = "remainder" id="renderBox">
       <canvas id="bg" ></canvas>
@@ -24,21 +27,69 @@
     
     
     <div class="leftBar"> 
-      <img src="ScasLogo.png" alt="Logo" width="100%"> 
-      <h1 class="headingText" > Upcoming Classes </h1>
+      
+      <div class="logoDiv">
+        <img src="ScasLogo.png" alt="Logo" class="logoStyle"> 
+        <h6 class="slogan">A World of Opportunities</h6>
+      </div>
+      
+      <h1 class="headingTextClass" > Upcoming Classes </h1>
+
+      <div class="classContainer">
+
+        <h3 class="className">Y7 D&T</h3>
+        <h3 class="classStart">Starting in: 00:00</h3>
+
+      </div>
+
+      <div class="classContainer">
+
+        <h3 class="className">Y7 D&T</h3>
+        <h3 class="classStart">Starting in: 00:00</h3>
+
+      </div>
+
+      <div class="classContainer">
+
+        <h3 class="className">Y7 D&T</h3>
+        <h3 class="classStart">Starting in: 00:00</h3>
+
+      </div>
+
+      <div class="classContainer">
+
+        <h3 class="className">Y7 D&T</h3>
+        <h3 class="classStart">Starting in: 00:00</h3>
+
+      </div>
+
+      <div class="classContainer">
+
+        <h3 class="className">Y7 D&T</h3>
+        <h3 class="classStart">Starting in: 00:00</h3>
+
+      </div>
+
+      <div class="classContainer">
+
+        <h3 class="className">Y7 D&T</h3>
+        <h3 class="classStart">Starting in: 00:00</h3>
+
+      </div>
+
     </div>
 
     <div class="topBar">
-      <h1 class="headingText" > Workshop 7.12 </h1>
+      <h1 class="headingText" id="workshopName"> Workshop 7.12 </h1>
+      <h1 class="countdown">Workshop Time Left: 50:00</h1>
     </div>
     
+    <script>
+
+    </script>
+
     <script type="module" src="/main.js"></script>
 
-    <script>
-      function HideButton() {
-        document.getElementById("StartButton").hidden = true;
-}
-    </script>
 
   </body>
 </html>

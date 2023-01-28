@@ -6,10 +6,10 @@ import { AlphaFormat, RGBAFormat } from 'three';
 
 import {clockCube} from './cube.js';
 import {ClockLoader} from './ClockLoader';
+import {countdown} from './countdown';
 
 
 const alarm = new Audio("Alarm.mp3");
-
 
 // create a new scene background of nothing
 const scene = new THREE.Scene();
@@ -20,7 +20,6 @@ textureBackground.wrapS = THREE.RepeatWrapping;
 textureBackground.wrapT = THREE.RepeatWrapping;
 
 scene.background = textureBackground;
-
 
 //set the canvas and canvas size variables
 var canvas = document.getElementById('renderBox');
@@ -76,11 +75,26 @@ animate();
 
 
 
+document.getElementById("startButton").addEventListener("click", startClicked)
+
 
 function updateCubes(canvas_W) {
 
   clockLoader.SetXPos(-canvasW*0.055/2);
   clockLoader.RefreshCubes(canvasW);
+
+}
+
+var Countdown;
+
+function startClicked() {
+
+  if(document.getElementById("CSVPath").files[0]) {
+    document.getElementById("startDiv").style.display = "none";
+  }
+
+  Countdown = new countdown(document.getElementById("CSVPath").files[0], document);
+  Countdown.loadData();
 
 
 }
@@ -92,9 +106,6 @@ addEventListener("resize", (event) => {});
 
 onresize = (event) => {
 
-  if(document.getElementById("StartButton").hidden == true) {
-    alarm.play();
-  }
 
   canvasH = canvas.clientHeight;
   canvasW = canvas.clientWidth;

@@ -5,34 +5,73 @@ canvas {
 
 }
 
-.startButton {
-  font-size: 100px;
+.backgroundColour {
+  color: #2e2e2e;
+  background-color: #7a7a7a;
+}
+
+.startDiv {
   width: 100%;
   height: 100%;
   left: 0px;
   bottom: 0px;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Rubik', sans-serif;
+  color: #f7ae5b;
+  background-color: #425fc0;
+  border-width: 3px;
+  border-radius: 10px;
   z-index: 4;
   position:absolute;
 }
 
+.startButton {
+  margin-top: 30px;
+  font-size: 70px;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  background-color: #f7ae5b;
+  color: #425fc0;
+  border-width: 0px;
+  border-radius: 10px;
+}
+
 
 .headingText {
+  float: left;
+  vertical-align: middle;
+  font-family: 'Rubik', sans-serif;
+  color: rgb(255, 255, 255);
+  margin-left: 25px;
+}
+
+
+.headingTextClass {
   text-align: center;
   vertical-align: middle;
   font-family: 'Rubik', sans-serif;
   color: rgb(255, 255, 255);
 }
 
+
 .topBar {
   width: calc(100% - 250px);
-  height: 75px;
+  height: 80px;
   position: absolute;
   top: 0;
   right: 0;
   background-color: rgb(253, 154, 108);
   border-radius: 30px;
 
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center; */
+  display: inline-block;
 }
 .leftBar {
 
@@ -43,14 +82,67 @@ canvas {
   left: 0;
   background-color: rgb(92, 135, 253);
   border-radius: 20px;
+  text-align: center;
 
 }
 
 .remainder {
   position:absolute;
-  top: 75px;
+  top: 80px;
   left: 250px;
   width: calc(100% - 250px);
-  height: calc(100% - 75px);
+  height: calc(100% - 80px);
 
+}
+
+.logoStyle {
+  width:70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+.logoDiv {
+  background-color: #4b64d4;
+  border-radius: 20px;
+  padding-bottom: 1px;
+}
+
+.slogan {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color:rgb(192, 192, 192);
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+
+.countdown {
+  vertical-align: middle;
+  margin-right: 25px;
+  float: right;
+}
+
+.classContainer {
+
+  background-color: #f7ae5b;
+  border-radius: 5px;
+  padding-bottom: 5px;
+
+
+}
+
+.classStart{
+
+  margin-bottom: 11px;
+  vertical-align: middle;
+
+}
+
+.className{
+  margin-top: 3px;
+  background-color: #ffeb90;
+  border-radius: 5px;
 }
