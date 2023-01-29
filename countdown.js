@@ -203,7 +203,7 @@ export class countdown {
                 } else {
                     this.document.getElementById("countdown").innerHTML = "Workshop Time Left " + lessonTimeLeftMin + ":" + (String(lessonTimeLeftSec).length == 2 ? lessonTimeLeftSec : "0" + lessonTimeLeftSec );
                 }
-                if (lessonTimeLeftMin < 10) {
+                if (lessonTimeLeftMin < this.AlertBefore) {
                     this.runAlarm();
                     this.flickerScreen();
                 } else {
