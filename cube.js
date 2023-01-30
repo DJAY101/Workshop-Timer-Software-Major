@@ -98,7 +98,7 @@ export class clockCube {
         this.idleRotOffset = Math.PI/9;
 
         this.geometry = new THREE.BoxGeometry(size, size, size);
-        this.material = new THREE.MeshStandardMaterial( {color : '#034afc', metalness: 0.2} );
+        this.material = new THREE.MeshStandardMaterial( {color : '#254DEB', metalness: 0.2} );
 
         this.cube = new THREE.Mesh(this.geometry, this.material);
         this.updateText(this.scene, "00");

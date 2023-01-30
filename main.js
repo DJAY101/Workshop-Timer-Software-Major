@@ -7,23 +7,42 @@ import {ClockLoader} from './ClockLoader';
 import {countdown} from './countdown';
 
 
-// create a new scene background of nothing
-const scene = new THREE.Scene();
-
-// load a texture, set wrap mode to repeat
-const textureBackground = new THREE.TextureLoader().load( "Background.jpg" );
-textureBackground.wrapS = THREE.RepeatWrapping;
-textureBackground.wrapT = THREE.RepeatWrapping;
-
-scene.background = textureBackground;
-
 //set the canvas and canvas size variables
 var canvas = document.getElementById('renderBox');
 var canvasH = canvas.scrollHeight;
 var canvasW = canvas.scrollWidth;
 
+
+// create a new scene background of nothing
+const scene = new THREE.Scene();
+
+function loadBackground(){
+// load a texture, set wrap mode to repeat
+const textureBackground = new THREE.TextureLoader().load( "Background.jpg" );
+textureBackground.minFilter = THREE.LinearFilter;
+textureBackground.wrapS = THREE.RepeatWrapping;
+textureBackground.wrapT = THREE.RepeatWrapping;
+
+var aspect = window.width/window.height;
+
+var image = 5472/3648;
+var imagex = 2932;
+var imagey = 2932;
+
+var enlargeFactor = 5;
+textureBackground.offset.x = enlargeFactor*(1/(imagex/canvas.clientWidth))/2;
+textureBackground.offset.y = enlargeFactor*(1/(imagey/canvas.clientHeight));
+
+
+textureBackground.repeat.x = enlargeFactor*(1/(imagex/canvas.clientWidth));
+textureBackground.repeat.y = enlargeFactor*(1/(imagey/canvas.clientHeight));
+
+scene.background = textureBackground;
+}
+loadBackground();
+
 // create a camera object
-const camera = new THREE.PerspectiveCamera(90, canvasW / canvasH, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(10, canvasW / canvasH, 0.1, 1000)
 
 //init the rendering engine
 const renderer = new THREE.WebGLRenderer({
@@ -37,12 +56,12 @@ renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( canvasW, canvasH );
 
 //set the camera position
-camera.position.setZ(40);
+camera.position.setZ(400);
 
 
 
 
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new THREE.PointLight(0x5951EB);
 const light = new THREE.AmbientLight(0xffffff);
 light.position.set(15, 15, 100);
 light.intensity = 1.2;
@@ -141,6 +160,8 @@ onresize = (event) => {
   canvasH = canvas.clientHeight;
   canvasW = canvas.clientWidth;
 
+
+  loadBackground();
   //readjust canvas size
   document.getElementById('bg').style.height = String(canvasH)+"px";
   document.getElementById('bg').style.width = String(canvasW)+"px";
