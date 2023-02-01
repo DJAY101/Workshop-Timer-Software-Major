@@ -1,6 +1,7 @@
 import * as THREE from 'three' 
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { Vector3 } from 'three';
 export class clockCube {
 
 
@@ -101,6 +102,10 @@ export class clockCube {
         this.material = new THREE.MeshStandardMaterial( {color : '#254DEB', metalness: 0.2} );
 
         this.cube = new THREE.Mesh(this.geometry, this.material);
+
+
+
+
         this.updateText(this.scene, "00");
 
         // this.sphereGeo = new THREE.SphereGeometry(1);
@@ -163,14 +168,12 @@ export class clockCube {
 
         
 
+        const magnitude = 20;
 
-
-        this.targetLookAt.set((20*Math.cos(this.faceDirection)) + this.x_pos, this.y_pos, 20*Math.sin(this.faceDirection));
-        this.targetLookAtInverse.set((20*Math.cos(this.faceDirection+Math.PI))+ this.x_pos, this.y_pos, 20*Math.sin(this.faceDirection+Math.PI));
+        this.targetLookAt.set((magnitude*Math.cos(this.faceDirection)) + this.x_pos, this.y_pos, magnitude*Math.sin(this.faceDirection));
+        this.targetLookAtInverse.set((magnitude*Math.cos(this.faceDirection+Math.PI))+ this.x_pos, this.y_pos, magnitude*Math.sin(this.faceDirection+Math.PI));
 
         this.cube.lookAt(this.targetLookAt);
-
-    
         
         if(this.text != null) {
         this.text.lookAt(this.targetLookAt);
