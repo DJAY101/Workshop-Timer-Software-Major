@@ -45,7 +45,7 @@ export class ClockLoader {
     RefreshCubes(canvasWidth) {
 
         if(this.clockCubes.length != 0) {this.PurgeCubes();}
-        var cubeSize = canvasWidth/160;
+        var cubeSize = canvasWidth/150;
         var spaceOffset = 0;
 
         this.geometry = new THREE.BoxGeometry(cubeSize/3.5, cubeSize/3.5, cubeSize/3.5);

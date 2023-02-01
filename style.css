@@ -28,6 +28,7 @@ canvas {
   position:absolute;
 
 
+
 }
 
 .startButton {
@@ -39,6 +40,7 @@ canvas {
   color: #425fc0;
   border-width: 0px;
   border-radius: 10px;
+
 }
 
 
@@ -48,6 +50,8 @@ canvas {
   font-family: 'Rubik', sans-serif;
   color: rgb(255, 255, 255);
   margin-left: 25px;
+  font-size: 50px;
+  margin-top: 40px;
 }
 
 
@@ -57,7 +61,7 @@ canvas {
   font-family: 'Rubik', sans-serif;
   color: rgb(255, 255, 255);
   margin-bottom: 10px;
-  font-size: 30px;
+  font-size: 40px;
   background-color: #5558fd;
 
 
@@ -67,11 +71,11 @@ canvas {
 
 .topBar {
   width: calc(100% - 350px);
-  height: 80px;
+  height: 140px;
   position: absolute;
   top: 0;
   right: 0;
-  background-color: rgb(253, 154, 108);
+  background-color: rgb(230, 130, 90);
   border-radius: 30px;
 
 
@@ -93,9 +97,9 @@ canvas {
 
 .remainder {
   position:absolute;
-  top: 80px;
+  top: 140px;
   left: 350px;
-  width: calc(100% - 350px);
+  width: calc(100% - 140px);
   height: calc(100% - 80px);
 
 }
@@ -132,15 +136,16 @@ canvas {
   vertical-align: middle;
   margin-right: 25px;
   float: right;
-  font-size: 40px;
-  margin-top: 21px;
-  font-family: 'VT323', monospace;
+  font-size: 50px;
+  margin-top: 40px;
+  font-family: 'Rubik', sans-serif;
   color: #ffffff;
 }
 
 .classContainer {
+  font-family: 'IBM Plex Sans', sans-serif;
 
-  background-color: #f7ae5b;
+  background-color: rgb(230, 130, 90);
   border-radius: 5px;
   padding-bottom: 5px;
   margin-left: 5px;
@@ -154,6 +159,7 @@ canvas {
   margin-bottom: 8px;
   margin-top: 8px;
   font-size: 25px;
+  color: white;
   
 
 }

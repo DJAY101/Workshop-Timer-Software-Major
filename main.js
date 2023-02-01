@@ -70,7 +70,7 @@ pointLight.intensity = 1;
 
 
 //create the clock loader class that is in charge of spawning in the clock cubes
-var clockLoader = new ClockLoader(scene, -canvasW*0.055/2, 0, 0, 0.009);
+var clockLoader = new ClockLoader(scene, -canvasW*0.059/2, 5, 0, 0.008);
 clockLoader.RefreshCubes(canvas.clientWidth);
 
 scene.add(pointLight);
@@ -143,7 +143,7 @@ function startClicked() {
 //update cube positions when the canvas size has been changed
 function updateCubes(canvas_W) {
 
-  clockLoader.SetXPos(-canvasW*0.055/2);
+  clockLoader.SetXPos(-canvasW*0.059/2);
   clockLoader.RefreshCubes(canvasW);
 
 }

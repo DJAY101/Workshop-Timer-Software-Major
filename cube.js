@@ -25,7 +25,7 @@ export class clockCube {
         
         
         const size = this.size;
-        const fontSize = size/2.2
+        const fontSize = size/2
         const y_pos = this.y_pos;
         
         const SelfReference = this;

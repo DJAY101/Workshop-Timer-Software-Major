@@ -30,8 +30,8 @@ export class countdown {
     }
 
     //update the heading workshop name with the workshop name within the csv file
-    updateWorkshopName() {
-        this.document.getElementById("workshopName").textContent = this.workshopName;
+    updateWorkshopName(text) {
+        this.document.getElementById("workshopName").textContent = text;
     } 
 
     //load the CSV data into a readable structure 
@@ -53,8 +53,7 @@ export class countdown {
 
             //first format the data into a readable structure
             m_self.formatData();
-            // update the workshop name
-            m_self.updateWorkshopName();
+
             //set loading to complete as the data have been loaded into the class
             m_self.loadingComplete = true;
             // update the data on counters and upcoming classes
@@ -154,7 +153,7 @@ export class countdown {
     flickerScreen() {
 
         this.deltaTimeFlick = Date.now() - this.initTime;
-        if(this.deltaTimeFlick > 500) {
+        if(this.deltaTimeFlick > 1000) {
 
             if (this.flickerState) {
                 this.flickerState = 0;
@@ -168,10 +167,9 @@ export class countdown {
 
         }
 
-
-
-
     }
+
+
 
 
     Update() {
@@ -187,10 +185,12 @@ export class countdown {
         //Find all the lessons that are run today
         var lessonsToday = this.getTodayLessons(week, dtToday.getDay()-1);
 
-
         var tempArray = []
 
         this.document.getElementById("countdown").innerHTML = "No Workshop Running";
+        // update the workshop name
+         this.updateWorkshopName(this.workshopName);
+
         // filters out lessons of the day that has already been past and runs workshop countdown logic
         for(var i = 0; i < lessonsToday.length; i++) {
 
@@ -198,6 +198,9 @@ export class countdown {
                 var lessonTimeLeftMin = Math.trunc((this.getMinutes(lessonsToday[i].time) + this.classLength) - (this.getMinutes(dtToday) + this.AlertBefore));
 
                 var lessonTimeLeftSec = Math.trunc( this.getSeconds(lessonsToday[i].time) + this.classLength * 60 - this.AlertBefore * 60 - this.getSeconds(dtToday) )%60;
+                
+                this.updateWorkshopName(lessonsToday[i].lessonName);
+
                 if (lessonTimeLeftMin < 0) {
                     this.document.getElementById("countdown").innerHTML = "End of Workshop";
                 } else {
@@ -239,13 +242,7 @@ export class countdown {
             }
         }
 
-
-
     }
-
-
-
-
 
  }
 
