@@ -3,13 +3,18 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { Vector3 } from 'three';
 export class clockCube {
-
-
+    
+    
     updateText(scene, newText)
     {
+        
         if (this.currentText == newText) {return}
         this.currentText = newText
-
+        
+        if(this.text != null) {
+        scene.remove(this.text);
+        scene.remove(this.text2);
+        }
         //console.log("doing magic");
 
         var textGeo = null;
@@ -23,10 +28,6 @@ export class clockCube {
         const fontSize = size/2.2
         const y_pos = this.y_pos;
         
-        if(this.text != null) {
-        scene.remove(this.text);
-        scene.remove(this.text2);
-        }
         const SelfReference = this;
 
         const loader = new FontLoader();
@@ -73,10 +74,15 @@ export class clockCube {
             text2.position.setZ(-size);
 
             if(!SelfReference.queuedDeletion) {
-            scene.add(text);
-            scene.add(text2);
-            SelfReference.text2 = text2;
-            SelfReference.text = text;
+                scene.add(text);
+                scene.add(text2);
+                SelfReference.text2 = text2;
+                SelfReference.text = text;
+            } else {
+                scene.remove(text);
+                scene.remove(text2);
+                scene.remove(SelfReference.text2);
+                scene.remove(SelfReference.text);
             }
         } );
 
@@ -102,11 +108,8 @@ export class clockCube {
         this.material = new THREE.MeshStandardMaterial( {color : '#254DEB', metalness: 0.2} );
 
         this.cube = new THREE.Mesh(this.geometry, this.material);
-
-
-
-
-        this.updateText(this.scene, "00");
+        // this.currentText = "-1";
+        // this.updateText(this.scene, "999");
 
         // this.sphereGeo = new THREE.SphereGeometry(1);
         // this.sphere = new THREE.Mesh(this.sphereGeo, this.material);
