@@ -176,9 +176,9 @@ export class countdown {
         //if the data has not been loaded yet then skip this update call
         if (!this.loadingComplete) return;
 
-        var todayTemp = new Date();
-        var dtToday = new Date(2023, 2, 6, 9, 30, todayTemp.getSeconds());
-
+        // var todayTemp = new Date();
+        // var dtToday = new Date(2023, 2, 6, 9, 51, todayTemp.getSeconds());
+        var dtToday = new Date();
         //calculate if the current day is week A or B
         var week = Math.trunc((dtToday.getTime() - this.TermStart.getTime())/1000/60/60/24/7)%2;
         
